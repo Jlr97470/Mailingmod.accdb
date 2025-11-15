@@ -1,0 +1,94 @@
+﻿{
+  "Info": {
+    "Class": "clsDbDocument",
+    "Description": "Database Documents Properties (DAO)"
+  },
+  "Items": {
+    "Databases": {
+      "SummaryInfo": {
+        "Author": "Jean-Laurent Royer",
+        "Company": "CONNECT FACTORY",
+        "Manager": "Armelle Amalric",
+        "Subject": "Mailing",
+        "Title": "BASE MAILING (FRONTALE)"
+      }
+    },
+    "Forms": {
+      "FrmGestionFichiers": {
+        "Description": "Formulaire De Gestion Des Fichiers"
+      },
+      "FrmGestionMail": {
+        "Description": "Formulaire De Gestion D'Envoie D'EMail"
+      },
+      "FrmGestionParametres": {
+        "Description": "Formulaire De Gestion Des Parametres Local"
+      },
+      "FrmGestionTraitements": {
+        "Description": "Formulaire De Gestion Des Traitements"
+      },
+      "FrmMailing": {
+        "Description": "Formulaire De Selection D'Envoie D'EMail"
+      },
+      "FrmMailingMulti": {
+        "Description": "Formulaire De Selection Multiple D'Envoie D'EMail"
+      },
+      "FrmMenuPrincipale": {
+        "Description": "Formulaire Du Menu Principale"
+      },
+      "FrmNotes": {
+        "Description": "Formulaire Des Notes"
+      }
+    },
+    "Modules": {
+      "ClsSendMailStatus": {
+        "Description": "Class Pour La Gestion Du Status D'Envoie D'Email"
+      },
+      "ModGestionFichiers": {
+        "Description": "Module De Gestion Des Fichiers"
+      },
+      "ModGestionFonctions": {
+        "Description": "Module De Gestion Des Fonctions"
+      },
+      "ModGestionFormulaires": {
+        "Description": "Module De Gestion Des Formulaires"
+      },
+      "ModGestionImportsExports": {
+        "Description": "Module De Gestion Des Imports Et Exports"
+      },
+      "ModGestionTraitements": {
+        "Description": "Module De Gestion Des Traitements"
+      }
+    },
+    "Scripts": {
+      "AutoExec": {
+        "Description": "Macro De Demarrage"
+      },
+      "Autokeys": {
+        "Description": "Macro Des Raccourci Clavier"
+      },
+      "MacMenuPrincipale": {
+        "Description": "Macro Du Menu Principale"
+      }
+    },
+    "Tables": {
+      "SelFichiersDetailler": {
+        "Description": "Selection Des Fichiers Detailler"
+      },
+      "SelParametresDetailler": {
+        "Description": "Selection Des Parametres Detailler"
+      },
+      "TBLCONTACTS": {
+        "Description": "Liste Des Contacts"
+      },
+      "TBLFICHIERS": {
+        "Description": "Liste Des Fichiers"
+      },
+      "TBLMENU": {
+        "Description": "Liste Du Menu"
+      },
+      "TBLPARAMETRES": {
+        "Description": "Liste Des Parametres"
+      }
+    }
+  }
+}
