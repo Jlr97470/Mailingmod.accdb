@@ -5,7 +5,7 @@ VCS Version 4.1.2
 Full Path: D:\MES_SOURCES\ACCESS\SOURCES\DELTAINFORMATIQUE\ACCESS_2007-2016\BASE_MAILING\Mailingmod.accdb
 Export Folder: D:\MES_SOURCES\GITHUB\Mailingmod.accdb\
 Performing Full Export
-15/11/2025 10:57:57
+16/11/2025 14:53:58
 -------------------------------------
 Scanning source files...
 No db connections found in this database.
@@ -13,6 +13,16 @@ No vbe forms found in this database.
 No saved specs found in this database.
 No commandbars found in this database.
 No shared images found in this database.
+
+-------------------------------------
+ERROR: Your drive isn't ready! Reconnect S: to continue.
+Source: modFileAccess.GetUncPath
+-------------------------------------
+
+-------------------------------------
+ERROR: Your drive isn't ready! Reconnect S: to continue.
+Source: modFileAccess.GetUncPath
+-------------------------------------
 
 -------------------------------------
 ERROR: Your drive isn't ready! Reconnect S: to continue.
@@ -86,30 +96,30 @@ Exporting tables...
 -------------------------------------
 Exporting queries...          
   SelFichiersDetailler
-    Sanitized in 0,004 seconds.
+    Sanitized in 0,005 seconds.
   SelFichiersDetailler (SQL)
   SelParametresDetailler
-    Sanitized in 0,002 seconds.
+    Sanitized in 0,003 seconds.
   SelParametresDetailler (SQL)
 [2]
 -------------------------------------
 Exporting forms...            
   FrmMailing
-    Sanitized in 0,025 seconds.
+    Sanitized in 0,026 seconds.
   FrmGestionFichiers
-    Sanitized in 0,013 seconds.
+    Sanitized in 0,016 seconds.
   FrmGestionTraitements
-    Sanitized in 0,005 seconds.
+    Sanitized in 0,006 seconds.
   FrmNotes
-    Sanitized in 0,003 seconds.
+    Sanitized in 0,004 seconds.
   FrmGestionMail
-    Sanitized in 0,013 seconds.
+    Sanitized in 0,014 seconds.
   FrmGestionParametres
     Sanitized in 0,009 seconds.
   FrmMailingMulti
-    Sanitized in 0,034 seconds.
+    Sanitized in 0,038 seconds.
   FrmMenuPrincipale
-    Sanitized in 0,023 seconds.
+    Sanitized in 0,029 seconds.
 [8]
 -------------------------------------
 Exporting macros...           
@@ -132,81 +142,82 @@ Exporting doc properties...
 Exporting nav pane groups...  
   Groups
 [1]
+Added default .gitignore file
 -------------------------------------
-Done. (3,4 seconds)
+Done. (5,07 seconds)
 
 --------------------------------------------------
                 PERFORMANCE REPORTS
 --------------------------------------------------
 Category                      Count     Seconds
 --------------------------------------------------
-Forms                         8         1,06
-DB Properties                 47        0,34
-IMEX Specs                    5         0,27
-Queries                       2         0,25
-Doc Properties                28        0,23
-Modules                       6         0,21
-Tables                        4         0,15
-Macros                        3         0,08
-Nav Pane Groups               1         0,08
-VBE References                8         0,07
-Project                       1         0,06
-Relations                     1         0,05
-Themes                        1         0,05
-Proj Properties               2         0,04
-VB Project                    1         0,04
-CommandBars                   0         0,03
+Forms                         8         1,39
+DB Properties                 47        0,72
+IMEX Specs                    5         0,34
+Queries                       2         0,33
+Doc Properties                28        0,28
+Modules                       6         0,26
+Tables                        4         0,22
+Macros                        3         0,13
+Project                       1         0,13
+Nav Pane Groups               1         0,12
+VBE References                8         0,12
+Themes                        1         0,10
+Relations                     1         0,09
+Proj Properties               2         0,09
+VB Project                    1         0,08
+CommandBars                   0         0,07
 DB Connections                0         0,03
 Hidden Attributes             0         0,02
 Shared Images                 0         0,01
 Table Data Macros             0         0,01
 Table Data                    0         0,00
+Reports                       0         0,00
 VBE Forms                     0         0,00
 Saved Specs                   0         0,00
-Reports                       0         0,00
 --------------------------------------------------
-TOTALS:                       118       3,08
+TOTALS:                       118       4,52
 --------------------------------------------------
 
 --------------------------------------------------
 Operations                    Count     Seconds
 --------------------------------------------------
-Convert to JSON               1574      0,64
-Increment Progress            126       0,50
-Scan DB Objects               1         0,31
-App.SaveAsText()              13        0,29
-Console Updates               7         0,17
-Sanitize File                 13        0,14
-Get File Property Hash        74        0,06
+Increment Progress            126       1,21
+Console Updates               12        0,66
+Convert to JSON               1574      0,66
+Scan DB Objects               1         0,35
+App.SaveAsText()              13        0,32
+Sanitize File                 13        0,15
+Write File                    58        0,07
+Get File Property Hash        74        0,07
 Read File Bytes               24        0,06
-Write File                    58        0,05
 Export VBE Module             6         0,05
 Format SQL                    2         0,04
 App.ExportXML()               4         0,04
-Clear Orphaned Files          17        0,03
-Compute SHA256                143       0,02
-Read File DevMode             8         0,02
-Read File                     24        0,02
+Clear Orphaned Files          17        0,04
+Delete File                   38        0,03
+Read File                     24        0,03
+Compute SHA256                143       0,03
 modFileAccess.VerifyPath      76        0,02
-Delete File                   38        0,02
-Quick Count Files             1         0,02
+Read File DevMode             8         0,02
 Sanitize VBA Code             14        0,02
-Clear Files by Ext            6         0,01
+Clear Files by Ext            6         0,02
 Get VBA Hash                  14        0,01
+Quick Count Files             1         0,01
 Get Modified Date             61        0,01
-Parse JSON                    1         0,01
 Save Table SQL                4         0,01
+Parse JSON                    1         0,01
+modFileAccess.GetUncPath      8         0,01
 Quick Count Objects           1         0,01
 Check for linked table        4         0,01
-modFileAccess.GetUncPath      8         0,00
-Format XML                    4         0,00
 Sanitize XML                  4         0,00
+Format XML                    4         0,00
+Close Open Objects            1         0,00
 Parse JSON ISO Date           39        0,00
 Export Theme                  1         0,00
-Close Open Objects            1         0,00
 Save Query SQL                2         0,00
 --------------------------------------------------
-Other Operations                        0,78
+Other Operations                        1,09
 --------------------------------------------------
 
 
