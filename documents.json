@@ -15,7 +15,7 @@
     },
     "Forms": {
       "FrmGestionFichiers": {
-        "Description": "Formulaire De Gestion Des Fichiers"
+        "Description": "Formulaire De Gestion Des Fichiers Attachées"
       },
       "FrmGestionMail": {
         "Description": "Formulaire De Gestion D'Envoie D'EMail"

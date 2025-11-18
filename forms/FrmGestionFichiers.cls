@@ -2,44 +2,25 @@
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'******************************************************************************
-'***     Copyright                                                                       ***
-'******************************************************************************
-'***    FORM:                                                                                              ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    PROGRAMMEUR:                                                                              ***
-'***      Royer Jean-Laurent                                                                         ***
-'******************************************************************************
-
-'******************************************************************************
-'***    MODIF :                                                                                            ***
-'******************************************************************************
+' ##MODULE_SUMMARY Module de gestion des importations et des expotations de Donne.
+' ##PROJECT_TITLE DeltaInformatique (Frontale)
+' ##PROJECT_SUMMARY Interface DeltaInformatique
+Option Compare Database
 Option Explicit
 
-'******************************************************************************
-'***    Declaration De Procedure Priver                                                       ***
-'******************************************************************************
+Private Const ModName = "FrmGestionFichiers"
 
-'******************************************************************************
-'***    PROCEDURE:                                                                                   ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                          ***
-'***    SORTIE:                                                                                           ***
-'******************************************************************************
-'***    EXEMPLE:                                                                                        ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub Rafraichir(Optional ByVal BytModeRafraichir As Byte)
    Dim StrSQLFichiersPreference As String
-   Dim RsMachines As DAO.Recordset
+   Dim RsFichiersPreference As DAO.Recordset
    Dim CtlActive As Access.Control
 
    On Error GoTo Err_Rafraichir
 
-   StrSQLFichiersPreference = "SELECT FicCode1, FicValeur FROM SelFichiersDetailler WHERE SelFichiersDetailler.FicCode2=[CmbFichiersListe] UNION SELECT TBLMACHINES.MacNom AS FicCode1, '' AS FicValeur FROM TBLMACHINES GROUP BY TBLMACHINES.MacNom, '' HAVING TBLMACHINES.MacNom not In (SELECT FicCode1 FROM SelFichiersDetailler WHERE SelFichiersDetailler.FicCode2=[CmbFichiersListe];) UNION SELECT TBLMACHINES.MacUtilisateur AS FicCode1,'' As FicValeur FROM TBLMACHINES GROUP BY TBLMACHINES.MacUtilisateur,'' HAVING TBLMACHINES.MacUtilisateur not In (SELECT FicCode1 FROM SelFichiersDetailler WHERE SelFichiersDetailler.FicCode2=[CmbFichiersListe];) UNION SELECT TBLMACHINES.MacDomaine AS FicCode1,'' As FicValeur FROM TBLMACHINES GROUP BY TBLMACHINES.MacDomaine,'' HAVING TBLMACHINES.MacDomaine not In (SELECT FicCode1 FROM SelFichiersDetailler WHERE SelFichiersDetailler.FicCode2=[CmbFichiersListe];);"
+   StrSQLFichiersPreference = "SELECT FicCode1, FicValeur FROM SelFichiersDetailler WHERE SelFichiersDetailler.FicCode2=[CmbFichiersListe] UNION SELECT TBLMACHINES.MacNom AS FicCode1, '' AS FicValeur FROM TBLMACHINES GROUP BY TBLMACHINES.MacNom, '' HAVING TBLMACHINES.MacNom Not In (SELECT FicCode1 FROM SelFichiersDetailler WHERE SelFichiersDetailler.FicCode2=[CmbFichiersListe];) UNION SELECT TBLMACHINES.MacUtilisateur AS FicCode1,'' As FicValeur FROM TBLMACHINES GROUP BY TBLMACHINES.MacUtilisateur,'' HAVING TBLMACHINES.MacUtilisateur Not In (SELECT FicCode1 FROM SelFichiersDetailler WHERE SelFichiersDetailler.FicCode2=[CmbFichiersListe];) UNION SELECT TBLMACHINES.MacDomaine AS FicCode1,'' As FicValeur FROM TBLMACHINES GROUP BY TBLMACHINES.MacDomaine,'' HAVING TBLMACHINES.MacDomaine Not In (SELECT FicCode1 FROM SelFichiersDetailler WHERE SelFichiersDetailler.FicCode2=[CmbFichiersListe];);"
 
    Select Case BytModeRafraichir
       Case RAFRAICHIRVISIBLE
@@ -68,31 +49,7 @@ Private Sub Rafraichir(Optional ByVal BytModeRafraichir As Byte)
 
          On Error Resume Next
 
-         Set RsMachines = CurrentDb.OpenRecordset("SELECT * FROM TBLMACHINES;", dbOpenForwardOnly)
-
-         Select Case RsMachines.RecordCount
-            Case vbEmpty
-
-               CmbFichiersPreference.RowSource = "SELECT FicCode1, FicValeur FROM SelFichiersDetailler WHERE SelFichiersDetailler.FicCode2=[CmbFichiersListe] ;"
-
-            Case Else
-
-               CmbFichiersPreference.RowSource = StrSQLFichiersPreference
-
-         End Select
-
-         Select Case Err.Number
-            Case vbEmpty
-
-            Case Else
-
-               Err.Clear
-
-               CmbFichiersPreference.RowSource = "SELECT FicCode1, FicValeur FROM SelFichiersDetailler WHERE SelFichiersDetailler.FicCode2=[CmbFichiersListe] ;"
-
-         End Select
-
-         RsMachines.Close
+         CmbFichiersPreference.RowSource = "SELECT FicCode1, FicValeur FROM SelFichiersDetailler WHERE SelFichiersDetailler.FicCode2=[CmbFichiersListe] ;"
 
          On Error GoTo Err_Rafraichir
 
@@ -121,27 +78,28 @@ Private Sub Rafraichir(Optional ByVal BytModeRafraichir As Byte)
 
 Exit_Rafraichir:
 
-   Set RsMachines = Nothing
-
    Exit Sub
 
 Err_Rafraichir:
 
-   MsgBox Err.Number & " " & Err.Description, , "Rafraichir"
+   Dim IntNumError As Long
+   Dim StrError As String
+
+   StrError = Err.Number & " " & Err.Description & vbCrLf
+
+   For IntNumError = 0 To Errors.Count - 1
+
+     StrError = StrError & Errors(IntNumError).Number & " " & Errors(IntNumError).Description & vbCrLf
+
+   Next IntNumError
+
+   MsgBox StrError, vbCritical, ModName & ".Rafraichir"
 
    Resume Exit_Rafraichir
 End Sub
-
-'******************************************************************************
-'***    PROCEDURE:                                                                                   ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                          ***
-'***    SORTIE:                                                                                           ***
-'******************************************************************************
-'***    EXEMPLE:                                                                                        ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub ChangeEtatBouton()
    Dim CtlActive As Access.Control
 
@@ -188,26 +146,29 @@ Exit_ChangeEtatBouton:
 
 Err_ChangeEtatBouton:
 
-   MsgBox Err.Number & " " & Err.Description, , "ChangeEtatBouton"
+   Dim IntNumError As Long
+   Dim StrError As String
+
+   StrError = Err.Number & " " & Err.Description & vbCrLf
+
+   For IntNumError = 0 To Errors.Count - 1
+
+     StrError = StrError & Errors(IntNumError).Number & " " & Errors(IntNumError).Description & vbCrLf
+
+   Next IntNumError
+
+   MsgBox StrError, vbCritical, ModName & ".ChangeEtatBouton"
 
    Resume Exit_ChangeEtatBouton
 End Sub
-
-'******************************************************************************
-'***    Declaration D'Evenement Priver                                                        ***
-'******************************************************************************
-
-'******************************************************************************
-'***    EVENEMENT:                                                                                    ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                          ***
-'***    SORTIE:                                                                                           ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub Form_Open(Cancel As Integer)
 
    On Error GoTo Err_Form_Open
+
+   Me.Caption = DLookup("ParValeur", "SelParametresDetailler", "ParType='PROG' AND ParCode='NOM'") & " - Gestion Fichiers - " & DLookup("ParValeur", "SelParametresDetailler", "ParType='PROG' AND ParCode='COPYRIGHT'") & "@" & Year(Date)
 
    DoCmd.RunCommand acCmdWindowCascade
 
@@ -219,17 +180,11 @@ Err_Form_Open:
 
    MsgBox Err.Number & " " & Err.Description, , "Form_Open"
 
-   Resume Exit_Form_Open
+   Resume Err_Form_Open
 End Sub
-
-'******************************************************************************
-'***    EVENEMENT:                                                                                    ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                          ***
-'***    SORTIE:                                                                                           ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub Form_Load()
 
    On Error GoTo Err_Form_Load
@@ -246,17 +201,11 @@ Err_Form_Load:
 
    MsgBox Err.Number & " " & Err.Description, , "Form_Load"
 
-   Resume Exit_Form_Load
+   Resume Err_Form_Load
 End Sub
-
-'******************************************************************************
-'***    EVENEMENT:                                                                                    ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                           ***
-'***    SORTIE:                                                                                            ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub Form_Activate()
 
    On Error GoTo Err_Form_Activate
@@ -269,19 +218,24 @@ Exit_Form_Activate:
 
 Err_Form_Activate:
 
-    MsgBox Err.Number & " " & Err.Description, , "Form_Activate"
+   Dim IntNumError As Long
+   Dim StrError As String
+
+   StrError = Err.Number & " " & Err.Description & vbCrLf
+
+   For IntNumError = 0 To Errors.Count - 1
+
+     StrError = StrError & Errors(IntNumError).Number & " " & Errors(IntNumError).Description & vbCrLf
+
+   Next IntNumError
+
+   MsgBox StrError, vbCritical, ModName & ".Form_Activate"
 
    Resume Exit_Form_Activate
 End Sub
-
-'******************************************************************************
-'***    EVENEMENT:                                                                                    ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                           ***
-'***    SORTIE:                                                                                            ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub Form_Current()
 
    On Error GoTo Err_Form_Current
@@ -294,19 +248,24 @@ Exit_Form_Current:
 
 Err_Form_Current:
 
-    MsgBox Err.Number & " " & Err.Description, , "Form_Current"
+   Dim IntNumError As Long
+   Dim StrError As String
+
+   StrError = Err.Number & " " & Err.Description & vbCrLf
+
+   For IntNumError = 0 To Errors.Count - 1
+
+     StrError = StrError & Errors(IntNumError).Number & " " & Errors(IntNumError).Description & vbCrLf
+
+   Next IntNumError
+
+   MsgBox StrError, vbCritical, ModName & ".Form_Current"
 
    Resume Exit_Form_Current
 End Sub
-
-'******************************************************************************
-'***    EVENEMENT:                                                                                    ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                           ***
-'***    SORTIE:                                                                                            ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub CmbFichiersListe_AfterUpdate()
 
    On Error GoTo Err_CmbFichiersListe_AfterUpdate
@@ -325,33 +284,33 @@ Exit_CmbFichiersListe_AfterUpdate:
 
 Err_CmbFichiersListe_AfterUpdate:
 
-    MsgBox Err.Number & " " & Err.Description, , "CmbFichiersListe_AfterUpdate"
+   Dim IntNumError As Long
+   Dim StrError As String
+
+   StrError = Err.Number & " " & Err.Description & vbCrLf
+
+   For IntNumError = 0 To Errors.Count - 1
+
+     StrError = StrError & Errors(IntNumError).Number & " " & Errors(IntNumError).Description & vbCrLf
+
+   Next IntNumError
+
+   MsgBox StrError, vbCritical, ModName & ".CmbFichiersListe_AfterUpdate"
 
    Resume Exit_CmbFichiersListe_AfterUpdate
 End Sub
-
-'******************************************************************************
-'***    EVENEMENT:                                                                                    ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                           ***
-'***    SORTIE:                                                                                            ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub CmbFichiersPreference_AfterUpdate()
 
    On Error GoTo Err_CmbFichiersPreference_AfterUpdate
 
    Rafraichir (RAFRAICHIRCHOIX)
 
-   Select Case CmbFichiersPreference.Column(1)
-      Case vbNullString
+   TxtFichiersRepertoire = CmbFichiersPreference.Column(1)
 
-      Case Else
-
-         TxtFichiersRepertoire = CmbFichiersPreference.Column(1)
-
-   End Select
+   TxtExtension = UCase(Right(CmbFichiersListe, Len(CmbFichiersListe) - InStr(CmbFichiersListe, ".")))
 
    ChangeEtatBouton
 
@@ -361,24 +320,29 @@ Exit_CmbFichiersPreference_AfterUpdate:
 
 Err_CmbFichiersPreference_AfterUpdate:
 
-    MsgBox Err.Number & " " & Err.Description, , "CmbFichiersPreference_AfterUpdate"
+   Dim IntNumError As Long
+   Dim StrError As String
+
+   StrError = Err.Number & " " & Err.Description & vbCrLf
+
+   For IntNumError = 0 To Errors.Count - 1
+
+     StrError = StrError & Errors(IntNumError).Number & " " & Errors(IntNumError).Description & vbCrLf
+
+   Next IntNumError
+
+   MsgBox StrError, vbCritical, ModName & ".CmbFichiersPreference_AfterUpdate"
 
    Resume Exit_CmbFichiersPreference_AfterUpdate
 End Sub
-
-'******************************************************************************
-'***    EVENEMENT:                                                                                    ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                          ***
-'***    SORTIE:                                                                                           ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub CmdFermer_Click()
 
    On Error GoTo Err_CmdFermer_Click
 
-   DoCmd.Close acForm, Me.Name
+   DoCmd.Close acForm, Me.Name, acSavePrompt
 
 Exit_CmdFermer_Click:
 
@@ -386,70 +350,76 @@ Exit_CmdFermer_Click:
 
 Err_CmdFermer_Click:
 
-   MsgBox Err.Number & " " & Err.Description, , "CmdFermer_Click"
+   Dim IntNumError As Long
+   Dim StrError As String
+
+   StrError = Err.Number & " " & Err.Description & vbCrLf
+
+   For IntNumError = 0 To Errors.Count - 1
+
+     StrError = StrError & Errors(IntNumError).Number & " " & Errors(IntNumError).Description & vbCrLf
+
+   Next IntNumError
+
+   MsgBox StrError, vbCritical, ModName & ".CmdFermer_Click"
 
    Resume Exit_CmdFermer_Click
 End Sub
-
-'******************************************************************************
-'***    EVENEMENT:                                                                                    ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                           ***
-'***    SORTIE:                                                                                            ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub CmdRepertoireFichier_Click()
    Dim FsoSystemFichier As New Scripting.FileSystemObject
    Dim FilFichier As Scripting.File
+   Dim CdgFichiers As Office.FileDialog
 
    On Error GoTo Err_CmdRepertoireFichier_Click
 
-   CdgFichiers.DialogTitle = "CP 2003 - Indiquer L'Emplacement Du Fichier " & CmbFichiersListe
+   Set CdgFichiers = Application.FileDialog(msoFileDialogFilePicker)
 
-   CdgFichiers.DefaultExt = "." & TxtExtension
+   CdgFichiers.Title = "Indiquer L'Emplacement Du Fichier " & CmbFichiersListe
 
-   CdgFichiers.Filter = "(*." & TxtExtension & ")"
+   CdgFichiers.Filters.Clear
 
-   Select Case FsoSystemFichier.FolderExists(Nz(TxtFichiersRepertoire))
-      Case True
+   CdgFichiers.InitialFileName = IIf(IsNull(CmbFichiersListe), vbNullString, IIf(TxtFichiersRepertoire = vbNullString, "", TxtFichiersRepertoire & "\") & Nz(CmbFichiersListe))
 
-         CdgFichiers.InitDir = Nz(TxtFichiersRepertoire)
-      Case False
+   CdgFichiers.AllowMultiSelect = False
 
-   End Select
+   CdgFichiers.Show
 
-   CdgFichiers.FileName = IIf(IsNull(CmbFichiersListe), vbNullString, IIf(TxtFichiersRepertoire = vbNullString, "", TxtFichiersRepertoire & "\") & Nz(CmbFichiersListe))
+   If CdgFichiers.SelectedItems.Count > 0 Then
 
-   CdgFichiers.ShowOpen
+      Select Case FsoSystemFichier.FileExists(CdgFichiers.SelectedItems(1))
+         Case True
 
-   Select Case FsoSystemFichier.FileExists(CdgFichiers.FileName)
-      Case True
+            Set FilFichier = FsoSystemFichier.GetFile(CdgFichiers.SelectedItems(1))
 
-         Set FilFichier = FsoSystemFichier.GetFile(CdgFichiers.FileName)
+            CmbFichiersListe = FilFichier.Name
 
-         CmbFichiersListe = UCase(FilFichier.Name)
+            TxtFichiersRepertoire = FilFichier.ParentFolder.Path
 
-         TxtFichiersRepertoire = UCase(FilFichier.ParentFolder.Path)
+            TxtExtension = UCase(Mid(CdgFichiers.SelectedItems(1), InStrRev(CdgFichiers.SelectedItems(1), ".") + 1))
 
-      Case False
+         Case False
 
-         MsgBox "Aucun Fichier N'a Ete Choisi !", vbInformation, Me.Caption
+            MsgBox "Aucun Fichier N'a Ete Choisi", vbInformation, Me.Caption
 
-   End Select
+      End Select
 
-   Rafraichir (RAFRAICHIRCHOIX)
+      Rafraichir (RAFRAICHIRCHOIX)
 
-   Select Case CmbFichiersPreference.ListIndex
-      Case -1
+      Select Case CmbFichiersPreference.ListCount
+         Case 0
 
-         CmbFichiersPreference = "DEFAULT"
+            CmbFichiersPreference = "DEFAULT"
 
-      Case Else
+         Case Else
 
-   End Select
+      End Select
 
-   ChangeEtatBouton
+      ChangeEtatBouton
+
+   End If
 
 Exit_CmdRepertoireFichier_Click:
 
@@ -461,19 +431,24 @@ Exit_CmdRepertoireFichier_Click:
 
 Err_CmdRepertoireFichier_Click:
 
-   MsgBox Err.Number & " " & Err.Description, , "CmdRepertoireFichier_Click"
+   Dim IntNumError As Long
+   Dim StrError As String
+
+   StrError = Err.Number & " " & Err.Description & vbCrLf
+
+   For IntNumError = 0 To Errors.Count - 1
+
+     StrError = StrError & Errors(IntNumError).Number & " " & Errors(IntNumError).Description & vbCrLf
+
+   Next IntNumError
+
+   MsgBox StrError, vbCritical, ModName & ".CmdRepertoireFichier_Click"
 
    Resume Exit_CmdRepertoireFichier_Click
 End Sub
-
-'******************************************************************************
-'***    EVENEMENT:                                                                                    ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                           ***
-'***    SORTIE:                                                                                            ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub CmdValider_Click()
    Dim FsoSystemFichier As New Scripting.FileSystemObject
 
@@ -487,19 +462,27 @@ Private Sub CmdValider_Click()
            Select Case IsNull(DLookup("FicType", "TBLFICHIERS", "FicType='FIC" & TxtExtension & "' AND FicCode LIKE '" & CmbFichiersPreference & "=" & CmbFichiersListe & "'"))
               Case True
 
-                 CurrentDb.Execute "INSERT INTO TBLFICHIERS (FicType,FicCode,FicValeur,FicValide) VALUES('FIC" & UCase(Right(CmbFichiersListe, 3)) & "','" & CmbFichiersPreference & "=" & CmbFichiersListe & "','" & TxtFichiersRepertoire & "',True) ;"
+                 CurrentDb.Execute "INSERT INTO TBLFICHIERS (FicType,FicCode,FicValeur,FicValide) VALUES('FIC" & TxtExtension & "','" & CmbFichiersPreference & "=" & CmbFichiersListe & "','" & TxtFichiersRepertoire & "',True) ;"
 
               Case False
 
-                 CurrentDb.Execute "UPDATE TBLFICHIERS SET FicValeur='" & TxtFichiersRepertoire & "', FicValide=True WHERE FicType='FIC" & Right(CmbFichiersListe, 3) & "' AND FicCode='" & CmbFichiersPreference & "=" & CmbFichiersListe & "' ;"
+                 CurrentDb.Execute "UPDATE TBLFICHIERS SET FicValeur='" & TxtFichiersRepertoire & "', FicValide=True WHERE FicType='FIC" & TxtExtension & "' AND FicCode='" & CmbFichiersPreference & "=" & CmbFichiersListe & "' ;"
 
            End Select
 
-           ChangeTableInformationConnexion
+           Select Case TxtExtension
+                Case "ACCDB"
+
+                    ChangeTableInformationConnexion
+
+                Case Else
+
+            End Select
 
         Case False
 
-            MsgBox "Chemin Invalide !", , Me.Caption
+            MsgBox "Chemin Invalide", , Me.Caption
+
    End Select
 
    Rafraichir (RAFRAICHIRCHOIX)
@@ -510,19 +493,24 @@ Exit_CmdValider_Click:
 
 Err_CmdValider_Click:
 
-   MsgBox Err.Number & " " & Err.Description, , "CmdValider_Click"
+   Dim IntNumError As Long
+   Dim StrError As String
+
+   StrError = Err.Number & " " & Err.Description & vbCrLf
+
+   For IntNumError = 0 To Errors.Count - 1
+
+     StrError = StrError & Errors(IntNumError).Number & " " & Errors(IntNumError).Description & vbCrLf
+
+   Next IntNumError
+
+   MsgBox StrError, vbCritical, ModName & ".CmdValider_Click"
 
    Resume Exit_CmdValider_Click
 End Sub
-
-'******************************************************************************
-'***    EVENEMENT:                                                                                    ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                           ***
-'***    SORTIE:                                                                                            ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub CmdSupprimer_Click()
 
    On Error GoTo Err_CmdSupprimer_Click
@@ -541,19 +529,24 @@ Exit_CmdSupprimer_Click:
 
 Err_CmdSupprimer_Click:
 
-   MsgBox Err.Number & " " & Err.Description, , "CmdSupprimer_Click"
+   Dim IntNumError As Long
+   Dim StrError As String
+
+   StrError = Err.Number & " " & Err.Description & vbCrLf
+
+   For IntNumError = 0 To Errors.Count - 1
+
+     StrError = StrError & Errors(IntNumError).Number & " " & Errors(IntNumError).Description & vbCrLf
+
+   Next IntNumError
+
+   MsgBox StrError, vbCritical, ModName & ".CmdSupprimer_Click"
 
    Resume Exit_CmdSupprimer_Click
 End Sub
-
-'******************************************************************************
-'***    EVENEMENT:                                                                                    ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                           ***
-'***    SORTIE:                                                                                            ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub CmbFichiersListe_KeyPress(KeyAscii As Integer)
 
    On Error GoTo Err_CmbFichiersListe_KeyPress
@@ -566,19 +559,24 @@ Exit_CmbFichiersListe_KeyPress:
 
 Err_CmbFichiersListe_KeyPress:
 
-   MsgBox Err.Number & " " & Err.Description, , "CmbFichiersListe_KeyPress"
+   Dim IntNumError As Long
+   Dim StrError As String
+
+   StrError = Err.Number & " " & Err.Description & vbCrLf
+
+   For IntNumError = 0 To Errors.Count - 1
+
+     StrError = StrError & Errors(IntNumError).Number & " " & Errors(IntNumError).Description & vbCrLf
+
+   Next IntNumError
+
+   MsgBox StrError, vbCritical, ModName & ".CmbFichiersListe_KeyPress"
 
    Resume Exit_CmbFichiersListe_KeyPress
 End Sub
-
-'******************************************************************************
-'***    EVENEMENT:                                                                                    ***
-'******************************************************************************
-'***    FONCTION:                                                                                       ***
-'******************************************************************************
-'***    ENTREE:                                                                                           ***
-'***    SORTIE:                                                                                            ***
-'******************************************************************************
+' ##SUMMARY Fonction qui retourne un Object me d'un fichier.
+' ##RETURNS Retourne un Object Clsme du fichier.
+' ##PARAM StrFichier - Valeur chaîne du chemin du fichier.
 Private Sub CmbFichiersPreference_KeyPress(KeyAscii As Integer)
 
    On Error GoTo Err_CmbFichiersPreference_KeyPress
@@ -591,7 +589,18 @@ Exit_CmbFichiersPreference_KeyPress:
 
 Err_CmbFichiersPreference_KeyPress:
 
-   MsgBox Err.Number & " " & Err.Description, , "CmbFichiersListe_KeyPress"
+   Dim IntNumError As Long
+   Dim StrError As String
+
+   StrError = Err.Number & " " & Err.Description & vbCrLf
+
+   For IntNumError = 0 To Errors.Count - 1
+
+     StrError = StrError & Errors(IntNumError).Number & " " & Errors(IntNumError).Description & vbCrLf
+
+   Next IntNumError
+
+   MsgBox StrError, vbCritical, ModName & ".CmbFichiersPreference_KeyPress"
 
    Resume Exit_CmbFichiersPreference_KeyPress
 End Sub

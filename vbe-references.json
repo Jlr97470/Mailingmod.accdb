@@ -35,6 +35,10 @@
     "jmail": {
       "GUID": "{AED3A6B0-2171-11D2-B77C-0008C73ACA8F}",
       "Version": "4.0"
+    },
+    "Office": {
+      "GUID": "{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}",
+      "Version": "2.8"
     }
   }
 }
