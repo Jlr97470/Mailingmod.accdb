@@ -310,7 +310,7 @@ Private Sub CmbFichiersPreference_AfterUpdate()
 
    TxtFichiersRepertoire = CmbFichiersPreference.Column(1)
 
-   TxtExtension = UCase(Right(CmbFichiersListe, Len(CmbFichiersListe) - InStr(CmbFichiersListe, ".")))
+   TxtExtension = UCase(Mid(CmbFichiersListe, InStrRev(CmbFichiersListe, ".") + 1))
 
    ChangeEtatBouton
 

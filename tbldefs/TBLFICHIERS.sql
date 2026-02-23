@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [TBLFICHIERS] (
-  [FicType] VARCHAR (6),
+  [FicType] VARCHAR (7),
   [FicCode] VARCHAR (100),
   [FicValeur] VARCHAR (200),
   [FicValide] BIT,

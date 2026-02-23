@@ -12,10 +12,23 @@
     <xsd:annotation>
       <xsd:appinfo>
         <od:index index-name="PrimaryKey" index-key="FicType FicCode " primary="yes" unique="yes" clustered="no" order="asc asc"></od:index>
-        <od:tableProperty name="OrderByOn" type="1" value="1"></od:tableProperty>
+        <od:tableProperty name="OrderByOn" type="1" value="0"></od:tableProperty>
         <od:tableProperty name="Description" type="10" value="Liste Des Fichiers"></od:tableProperty>
         <od:tableProperty name="Orientation" type="2" value="0"></od:tableProperty>
         <od:tableProperty name="DefaultView" type="2" value="2"></od:tableProperty>
+        <od:tableProperty name="DisplayViewsOnSharePointSite" type="2" value="1"></od:tableProperty>
+        <od:tableProperty name="TotalsRow" type="1" value="0"></od:tableProperty>
+        <od:tableProperty name="FilterOnLoad" type="1" value="0"></od:tableProperty>
+        <od:tableProperty name="OrderByOnLoad" type="1" value="1"></od:tableProperty>
+        <od:tableProperty name="HideNewField" type="1" value="0"></od:tableProperty>
+        <od:tableProperty name="BackTint" type="6" value="100"></od:tableProperty>
+        <od:tableProperty name="BackShade" type="6" value="100"></od:tableProperty>
+        <od:tableProperty name="ThemeFontIndex" type="4" value="-1"></od:tableProperty>
+        <od:tableProperty name="AlternateBackThemeColorIndex" type="4" value="-1"></od:tableProperty>
+        <od:tableProperty name="AlternateBackTint" type="6" value="100"></od:tableProperty>
+        <od:tableProperty name="AlternateBackShade" type="6" value="100"></od:tableProperty>
+        <od:tableProperty name="DatasheetGridlinesThemeColorIndex" type="4" value="-1"></od:tableProperty>
+        <od:tableProperty name="DatasheetForeThemeColorIndex" type="4" value="-1"></od:tableProperty>
       </xsd:appinfo>
     </xsd:annotation>
     <xsd:complexType>
@@ -24,7 +37,7 @@
           <xsd:annotation>
             <xsd:appinfo>
               <od:fieldProperty name="ColumnWidth" type="3" value="1260"></od:fieldProperty>
-              <od:fieldProperty name="ColumnOrder" type="3" value="1"></od:fieldProperty>
+              <od:fieldProperty name="ColumnOrder" type="3" value="0"></od:fieldProperty>
               <od:fieldProperty name="ColumnHidden" type="1" value="0"></od:fieldProperty>
               <od:fieldProperty name="Description" type="10" value="Fichiers Type"></od:fieldProperty>
               <od:fieldProperty name="Caption" type="12" value="Fichiers Type"></od:fieldProperty>
@@ -45,11 +58,18 @@
               <od:fieldProperty name="IMEMode" type="2" value="0"></od:fieldProperty>
               <od:fieldProperty name="IMESentenceMode" type="2" value="3"></od:fieldProperty>
               <od:fieldProperty name="UnicodeCompression" type="1" value="1"></od:fieldProperty>
+              <od:fieldProperty name="AllowMultipleValues" type="1" value="0"></od:fieldProperty>
+              <od:fieldProperty name="TextAlign" type="2" value="0"></od:fieldProperty>
+              <od:fieldProperty name="AllowValueListEdits" type="1" value="0"></od:fieldProperty>
+              <od:fieldProperty name="AggregateType" type="4" value="-1"></od:fieldProperty>
+              <od:fieldProperty name="ShowOnlyRowSourceValues" type="1" value="0"></od:fieldProperty>
+              <od:fieldProperty name="ResultType" type="2" value="0"></od:fieldProperty>
+              <od:fieldProperty name="CurrencyLCID" type="4" value="0"></od:fieldProperty>
             </xsd:appinfo>
           </xsd:annotation>
           <xsd:simpleType>
             <xsd:restriction base="xsd:string">
-              <xsd:maxLength value="6"></xsd:maxLength>
+              <xsd:maxLength value="7"></xsd:maxLength>
             </xsd:restriction>
           </xsd:simpleType>
         </xsd:element>
@@ -69,6 +89,10 @@
               <od:fieldProperty name="IMEMode" type="2" value="0"></od:fieldProperty>
               <od:fieldProperty name="IMESentenceMode" type="2" value="3"></od:fieldProperty>
               <od:fieldProperty name="UnicodeCompression" type="1" value="1"></od:fieldProperty>
+              <od:fieldProperty name="TextAlign" type="2" value="0"></od:fieldProperty>
+              <od:fieldProperty name="AggregateType" type="4" value="-1"></od:fieldProperty>
+              <od:fieldProperty name="ResultType" type="2" value="0"></od:fieldProperty>
+              <od:fieldProperty name="CurrencyLCID" type="4" value="0"></od:fieldProperty>
             </xsd:appinfo>
           </xsd:annotation>
           <xsd:simpleType>
@@ -93,6 +117,10 @@
               <od:fieldProperty name="IMEMode" type="2" value="0"></od:fieldProperty>
               <od:fieldProperty name="IMESentenceMode" type="2" value="3"></od:fieldProperty>
               <od:fieldProperty name="UnicodeCompression" type="1" value="1"></od:fieldProperty>
+              <od:fieldProperty name="TextAlign" type="2" value="0"></od:fieldProperty>
+              <od:fieldProperty name="AggregateType" type="4" value="-1"></od:fieldProperty>
+              <od:fieldProperty name="ResultType" type="2" value="0"></od:fieldProperty>
+              <od:fieldProperty name="CurrencyLCID" type="4" value="0"></od:fieldProperty>
             </xsd:appinfo>
           </xsd:annotation>
           <xsd:simpleType>
@@ -115,6 +143,10 @@
               <od:fieldProperty name="ValidationRule" type="12" value="=Yes Or =No"></od:fieldProperty>
               <od:fieldProperty name="ValidationText" type="10" value="Le Champ Fichiers Valide (Oui/Non) Est Invalide"></od:fieldProperty>
               <od:fieldProperty name="DisplayControl" type="3" value="106"></od:fieldProperty>
+              <od:fieldProperty name="TextAlign" type="2" value="0"></od:fieldProperty>
+              <od:fieldProperty name="AggregateType" type="4" value="-1"></od:fieldProperty>
+              <od:fieldProperty name="ResultType" type="2" value="0"></od:fieldProperty>
+              <od:fieldProperty name="CurrencyLCID" type="4" value="0"></od:fieldProperty>
             </xsd:appinfo>
           </xsd:annotation>
         </xsd:element>

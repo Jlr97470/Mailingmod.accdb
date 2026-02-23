@@ -240,19 +240,19 @@ Public Function VerifieTableInformationConnexion() As Boolean
 
             LectureTableInformationConnexion TdfTable, StrType, StrParametre, StrChemin, StrFichier
 
-            StrExtension = UCase(Right(StrFichier, 3))
+            StrExtension = UCase(Mid(StrFichier, InStrRev(StrFichier, ".") + 1))
 
             CurrentDb.Execute "UPDATE TBLFICHIERS SET FicValide=False WHERE FicType='FIC" & StrExtension & "' AND FicCode LIKE '*=" & StrFichier & "' ;"
 
             Select Case FsoFichierSystem.FileExists(StrChemin & "\" & StrFichier)
                Case True
 
-                  StrCheminDefault = Nz(DLookup("FicValeur", "TBLFICHIERS", "FicType='FIC" & StrExtension & "' AND FicCode='DEFAULT=" & StrFichier & "'"))
+                  StrCheminDefault = Nz(DLookup("FicValeur", "TBLFICHIERS", "FicType='FIC" & StrExtension & "' AND FicCode='DEFAUT=" & StrFichier & "'"))
 
                   Select Case StrCheminDefault
                      Case vbNullString
 
-                        CurrentDb.Execute "INSERT INTO TBLFICHIERS (FicType,FicCode,FicValeur,FicValide) VALUES('FIC" & StrExtension & "','DEFAULT=" & StrFichier & "','" & StrChemin & "',True) ;"
+                        CurrentDb.Execute "INSERT INTO TBLFICHIERS (FicType,FicCode,FicValeur,FicValide) VALUES('FIC" & StrExtension & "','DEFAUT=" & StrFichier & "','" & StrChemin & "',True) ;"
 
                      Case Else
 

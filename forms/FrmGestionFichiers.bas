@@ -22,9 +22,9 @@ Begin Form
     Width =6240
     DatasheetFontHeight =10
     ItemSuffix =29
-    Left =6630
+    Left =11070
     Top =6225
-    Right =13995
+    Right =18435
     Bottom =13125
     TimerInterval =1000
     RecSrcDt = Begin
@@ -383,7 +383,7 @@ Begin Form
                         "pe1, SelFichiersDetailler.FicType2, SelFichiersDetailler.FicCode2 HAVING (((Min("
                         "SelFichiersDetailler.FicValide))=-1)) ORDER BY SelFichiersDetailler.FicType, Sel"
                         "FichiersDetailler.FicCode2, Min(SelFichiersDetailler.FicValide) DESC; "
-                    ColumnWidths ="0;567;567;2268;0"
+                    ColumnWidths ="0;1134;1134;2268;0"
                     StatusBarText ="Liste Des Fichiers Valide"
                     FontName ="Arial"
                     ControlTipText ="Liste Des Fichiers Valide"
