@@ -5,11 +5,11 @@
   TBLFICHIERS.FicCode,
   Left(
     [FicCode],
-    InStr([FicCode], "=")-1
+    InStr([FicCode], "=") - 1
   ) AS FicCode1,
   Right(
     [FicCode],
-    Len([FicCode])- InStr([FicCode], "=")
+    Len([FicCode]) - InStr([FicCode], "=")
   ) AS FicCode2,
   TBLFICHIERS.FicValeur,
   TBLFICHIERS.FicValide

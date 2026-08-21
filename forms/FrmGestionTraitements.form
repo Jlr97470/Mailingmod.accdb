@@ -22,10 +22,10 @@ Begin Form
     GridY =10
     Width =6825
     ItemSuffix =13
-    Left =5460
-    Top =375
-    Right =12630
-    Bottom =2985
+    Left =1000
+    Top =1000
+    Right =50000
+    Bottom =50000
     TimerInterval =10
     OnUnload ="[Event Procedure]"
     RecSrcDt = Begin

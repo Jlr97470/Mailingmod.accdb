@@ -12,10 +12,10 @@ Begin Form
     Width =8505
     DatasheetFontHeight =10
     ItemSuffix =18
-    Left =4995
-    Top =1125
-    Right =13875
-    Bottom =5970
+    Left =1000
+    Top =1000
+    Right =50000
+    Bottom =50000
     PaintPalette = Begin
         0x000301000000000000000000
     End

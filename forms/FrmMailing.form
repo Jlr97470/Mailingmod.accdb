@@ -22,8 +22,8 @@ Begin Form
     GridY =10
     Width =10770
     ItemSuffix =14
-    Right =10770
-    Bottom =6210
+    Right =50000
+    Bottom =50000
     RecSrcDt = Begin
         0x80daf79aee72e240
     End

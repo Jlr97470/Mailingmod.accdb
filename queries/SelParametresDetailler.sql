@@ -5,14 +5,14 @@
   TBLPARAMETRES.ParCode,
   Left(
     [ParCode],
-    InStr([ParCode], "=")-1
+    InStr([ParCode], "=") - 1
   ) AS ParCode1,
   Left(
     RemplaceChr([ParCode], [ParCode1] & "=", ""),
     InStr(
       RemplaceChr([ParCode], [ParCode1] & "=", ""),
       "="
-    )-1
+    ) - 1
   ) AS ParCode2,
   Left(
     RemplaceChr(
@@ -25,7 +25,7 @@
         ""
       ),
       "="
-    )-1
+    ) - 1
   ) AS ParCode3,
   Left(
     RemplaceChr(
@@ -38,7 +38,7 @@
         ""
       ),
       "="
-    )-1
+    ) - 1
   ) AS ParCode4,
   RemplaceChr(
     [ParCode], [ParCode1] & "=" & [ParCode2] & "=" & [ParCode3] & "=" & [ParCode4] & "=",

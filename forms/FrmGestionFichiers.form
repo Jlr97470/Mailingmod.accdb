@@ -22,10 +22,10 @@ Begin Form
     Width =6240
     DatasheetFontHeight =10
     ItemSuffix =29
-    Left =11070
-    Top =6225
-    Right =18435
-    Bottom =13125
+    Left =1000
+    Top =1000
+    Right =50000
+    Bottom =50000
     TimerInterval =1000
     RecSrcDt = Begin
         0xc811440b399fe140
