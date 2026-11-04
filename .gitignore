@@ -18,6 +18,7 @@ vcs-index.*
 # Ignore any dotenv files (used for external database connections)
 *.env
 logs/
+test-results/
 .env.*
 !.env*.example
 
